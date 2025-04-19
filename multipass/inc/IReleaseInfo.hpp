@@ -1,14 +1,15 @@
-#ifndef SIMPLESTREAM_H
-#define SIMPLESTREAM_H
+#ifndef IRELEASEINFO_H
+#define IRELEASEINFO_H
 
 #include <string>
 #include <cstdint>
-#include <vector>
-#include <stdbool.h>
+#include <list>
+#include <optional>
 
 namespace simplestream {
 
     typedef struct {
+        std::string name;
         std::string md5;
         std::string path;
         std::string sha256;
@@ -17,7 +18,7 @@ namespace simplestream {
 
     typedef struct {
         std::string version_name;
-        std::vector<FType> file;
+        std::list<FType> file;
     } VersionInfo;
 
     typedef struct {
@@ -31,22 +32,22 @@ namespace simplestream {
         std::string support_eol;
         bool supported;
         std::string version;
-        std::vector<VersionInfo> versions;
+        std::list<VersionInfo> versions;
     } CloudServerInfo;
     
     class IReleaseInfo {
     public:
         virtual ~IReleaseInfo() = default;
     
-        virtual std::vector<std::string> get_supported_release_list() const = 0;
-        virtual std::string get_current_LTS_release() const = 0;
-        virtual std::string get_sha256_img(const std::string& release) const = 0;
+        virtual std::list<std::string> get_supported_release_list() const = 0;
+        virtual std::optional<CloudServerInfo> get_current_LTS_release() const = 0;
+        virtual std::optional<std::string> get_sha256_img(const std::string& name_or_alias) const = 0;
     
-    private:
-        std::vector<CloudServerInfo> m_cloud_servers;
+    protected:
+        std::list<CloudServerInfo> m_cloud_servers;
     };
     
 
 }
 
-#endif // SIMPLESTREAM_H
+#endif // IRELEASEINFO_H
