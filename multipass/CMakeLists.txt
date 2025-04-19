@@ -14,6 +14,7 @@ include_directories(inc)
 add_executable(Multipass
     src/multipass.cpp
     src/jsondownloader.cpp
+    src/jsonparser.cpp
 )
 
 # Find and link RapidJSON
