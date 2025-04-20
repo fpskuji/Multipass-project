@@ -45,7 +45,7 @@ namespace simplestream {
                             ftype.path = file["path"].GetString();
                             ftype.sha256 = file["sha256"].GetString();
                             ftype.size = file["size"].GetUint();
-                            version_info.file.push_front(ftype);
+                            version_info.file.push_back(ftype);
                         }
                         server_info.versions.push_front(version_info);
                     }

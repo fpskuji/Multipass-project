@@ -31,3 +31,31 @@ endif()
 find_package(CURL REQUIRED)
 target_include_directories(Multipass PRIVATE ${CURL_INCLUDE_DIRS})
 target_link_libraries(Multipass ${CURL_LIBRARIES})
+
+
+# OS-specific settings
+if (WIN32)
+    # Windows-specific settings
+    set(CMAKE_C_COMPILER x86_64-w64-mingw32-gcc)
+    set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
+    message(STATUS "Configuring for Windows")
+elseif (CYGWIN)
+    # Cygwin-specific settings
+    set(CMAKE_C_COMPILER gcc)
+    set(CMAKE_CXX_COMPILER g++)
+    message(STATUS "Configuring for Cygwin")
+elseif (APPLE)
+    # macOS-specific settings
+    if (CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+        set(CMAKE_C_COMPILER oa64-clang)
+        set(CMAKE_CXX_COMPILER oa64-clang++)
+        message(STATUS "Configuring for Apple Silicon (arm64)")
+    else()
+        set(CMAKE_C_COMPILER o64-clang)
+        set(CMAKE_CXX_COMPILER o64-clang++)
+        message(STATUS "Configuring for Intel-based macOS (x86_64)")
+    endif()
+elseif (LINUX)
+    # Linux-specific settings
+    message(STATUS "Configuring for Linux")
+endif()
