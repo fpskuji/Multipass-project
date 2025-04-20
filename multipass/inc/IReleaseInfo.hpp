@@ -23,7 +23,7 @@ namespace simplestream {
 
     typedef struct {
         std::string server_name;
-        std::string alias;
+        std::string aliases;
         std::string arch;
         std::string os;
         std::string release;
@@ -39,9 +39,9 @@ namespace simplestream {
     public:
         virtual ~IReleaseInfo() = default;
     
-        virtual std::list<std::string> get_supported_release_list() const = 0;
+        virtual std::list<CloudServerInfo> get_supported_release_list() const = 0;
         virtual std::optional<CloudServerInfo> get_current_LTS_release() const = 0;
-        virtual std::optional<std::string> get_sha256_img(const std::string& name_or_alias) const = 0;
+        virtual std::optional<std::string> get_sha256_img(const std::string& alias) const = 0;
     
     protected:
         std::list<CloudServerInfo> m_cloud_servers;
