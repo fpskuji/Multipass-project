@@ -15,6 +15,7 @@ add_executable(Multipass
     src/multipass.cpp
     src/jsondownloader.cpp
     src/jsonparser.cpp
+    src/ReleaseInfoAMD64.cpp
 )
 
 # Find and link RapidJSON
